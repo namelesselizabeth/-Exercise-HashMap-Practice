@@ -1,7 +1,9 @@
 package hashMapPractice;
 
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,14 +13,33 @@ public class HashMapPractice {
 
   // Instantiate a new map : name and counter
   public static Map<String, Integer> pokerPlayer = new HashMap<>();
+  public static List<String[]> pokerList = new ArrayList<>();
 
   public static void main(String[] args) throws IOException, FileNotFoundException {
 
     extractCSVData("src\\hashMapPractice\\PokerHands.csv");
 
     // Create an if statement: if the hand is flush then....
+    int flush = 0;
+    for (String[] poker : pokerList) {
+    	
+    	
+    	if(poker[1].equals("FLUSH")) {
+    		
+    		if (pokerPlayer.containsKey(poker[0])) {
+    			flush += 1;
+    			pokerPlayer.put(poker[0], flush);
+    		}
+    		
+    		else if(!pokerPlayer.containsKey(poker[0])) {
+    			pokerPlayer.put(poker[0], 1);
+    		}
+    	}
+    }
+    
 
-    // Print updated list to the console
+    // Print list to the console
+    System.out.println("List of Players and # of flushes \n---------------");
     printToConsole(pokerPlayer);
 
     // Update key: "Rita Repulsa" to "Zordon"
@@ -43,7 +64,8 @@ public class HashMapPractice {
   }
 
 
-  public static Map<String, Integer> extractCSVData(String fileName) throws FileNotFoundException, IOException {
+
+public static Map<String, Integer> extractCSVData(String fileName) throws FileNotFoundException, IOException {
   
     BufferedReader reader = null;
     try {
@@ -51,27 +73,13 @@ public class HashMapPractice {
       String line = null;
       String[] lines = null;
       String headerLine = reader.readLine();
-
-      int i = 0;
      
       
       while ((line = reader.readLine()) != null) {
         lines = line.split(",");
-        
-        
-        if (lines[1].equals("FLUSH") ) {
-        	
-        	if(pokerPlayer.containsKey(lines[0])) { 
-        		
-        		pokerPlayer.put(lines[0], i++);
-        	}
-        	
-        	else if(!pokerPlayer.containsKey(lines[0])) {
-        		pokerPlayer.put(lines[0], i);
-        	}
-        }
-        
+        pokerList.add(lines);
       }
+      
     } finally {
       reader.close();
     }
