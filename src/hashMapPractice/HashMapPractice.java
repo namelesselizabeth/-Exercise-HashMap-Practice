@@ -20,15 +20,15 @@ public class HashMapPractice {
     extractCSVData("src\\hashMapPractice\\PokerHands.csv");
 
     // Create an if statement: if the hand is flush then....
-    int flush = 0;
+   
     for (String[] poker : pokerList) {
     	
-    	
     	if(poker[1].equals("FLUSH")) {
+    		 
     		
     		if (pokerPlayer.containsKey(poker[0])) {
-    			flush += 1;
-    			pokerPlayer.put(poker[0], flush);
+    			
+    			pokerPlayer.put(poker[0], pokerPlayer.get(poker[0]) + 1);
     		}
     		
     		else if(!pokerPlayer.containsKey(poker[0])) {
