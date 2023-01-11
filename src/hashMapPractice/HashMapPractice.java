@@ -43,20 +43,22 @@ public class HashMapPractice {
     printToConsole(pokerPlayer);
 
     // Update key: "Rita Repulsa" to "Zordon"
-   
+    pokerPlayer.put("Zordon", pokerPlayer.get("Rita Repulsa"));
+    pokerPlayer.remove("Rita Repulsa");
 
     // Print updated list to the console
     System.out.println("\nUpdated List \n---------------");
     printToConsole(pokerPlayer);
 
     // Update value: increase He man's number of flushes by one
- 
+    pokerPlayer.put("He Man", pokerPlayer.get("He Man") + 1);
     
     // Print updated list to the console
     System.out.println("\nUpdated List \n---------------");
     printToConsole(pokerPlayer);
 
     // Remove He-Man from the map entirely
+    pokerPlayer.remove("He Man");
 
     // Print the updated list to the console
     System.out.println("\nUpdated List \n---------------");
@@ -74,7 +76,6 @@ public static Map<String, Integer> extractCSVData(String fileName) throws FileNo
       String[] lines = null;
       String headerLine = reader.readLine();
      
-      
       while ((line = reader.readLine()) != null) {
         lines = line.split(",");
         pokerList.add(lines);
